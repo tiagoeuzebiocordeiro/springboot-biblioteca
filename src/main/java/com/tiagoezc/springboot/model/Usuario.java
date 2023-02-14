@@ -36,7 +36,7 @@ public class Usuario {
 	
 	@Basic // Atributos primitivos do java para tipo date
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
 	
 	@Email(message = "Email inválido")

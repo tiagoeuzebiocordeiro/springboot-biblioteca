@@ -11,7 +11,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String index(Model model) {
 		
-		model.addAttribute("msgBemVindo", "Bem-vindo à biblioteca");
+		model.addAttribute("msgBemVindo", "Bem-vindo à biblioteca! :)");
 		return "publica-index";
 		
 	}

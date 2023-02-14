@@ -1,10 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Criar Usuário</title>
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{jquery-3.6.0.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+
+
+<!-- --------------------------------- -->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> <!--  For notifications -->
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!--  Bootstrap requires jquery and toastr to run -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!--  We will not use this (atm) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> <!--  need it to run toastr -->
+
+<style>
+
+	.mensagem {
+	
+		color:red;
+	
+	}
+
+</style>
+
+
 </head>
 <body>
 
+	<div th:insert="fragments/publica-nav :: nav"></div>
+
+	<div class="container-fluid">
+
+	<h3 class="pt-3">Cadastro de usuários</h3>
+	
+	
+	
+	<form action="#" th:action="@{/usuario/salvar}" th:object="${usuario}" method="post">
+		<div class="form-group">
+			<label for="formGroupExampleInput">Nome</label> <input
+				type="text" class="form-control"
+				placeholder="Nome do usuário" style="width:300px;" th:field="*{nome}">
+		
+		</div>
+		
+				
+		
+		
+		<div class="form-group">
+			<label for="formGroupExampleInput2">CPF</label> <input
+				type="text" class="form-control" th:field="*{cpf}"
+				placeholder="CPF do usuário"style="width:300px;">
+		</div>
+		
+		
+		
+		<div class="form-group">
+			<label for="formGroupExampleInput2">Data de nascimento</label> <input
+				type="date" class="form-control" th:field="*{dataNascimento}"
+				placeholder="Data de nascimento do usuário" style="width:300px;">
+		</div>
+		
+		
+		
+		<div class="form-group">
+			<label for="formGroupExampleInput2">Email</label> <input
+				type="email" class="form-control" th:field="*{email}"
+				placeholder="Email do usuário" style="width:300px;">
+		</div>
+		
+		
+		
+		<div class="form-group">
+			<label for="formGroupExampleInput2">Login</label> <input
+				type="text" class="form-control" th:field="*{login}"
+				placeholder="Login do usuário" style="width:300px;">
+		</div>
+		
+		
+		
+		<div class="form-group">
+			<label for="formGroupExampleInput2">Senha</label> <input
+				type="password" class="form-control" th:field="*{password}"
+				placeholder="Senha do usuário" style="width:300px;">
+		</div>
+		
+		
+		
+		
+		<div class="pt-3"></div>
+		
+		<input class="btn btn-primary pt" type="submit" value="Gravar">
+		<a class="btn btn-secondary" href="/">Voltar</a>
+	</form>
+	</div>
+	
+	<script th:inline="javascript"> 
+
+	window.onload = function() {
+	
+		var mensagem = [[${mensagem}]];
+		if (mensagem == "Salvo com sucesso") {
+		
+			Command: toastr.success("Usuário salvo com sucesso!")
+			
+			}
+		
+			toastr.options = {
+			  "closeButton": true,
+			  "debug": false,
+			  "newestOnTop": false,
+			  "progressBar": true,
+			  "positionClass": "toast-top-right",
+			  "preventDuplicates": false,
+			  "onclick": null,
+			  "showDuration": "300",
+			  "hideDuration": "1000",
+			  "timeOut": "5000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+	
+		}
+	
+	}
+
+
+</script>
+	
+	
 </body>
 </html>

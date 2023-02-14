@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Lista de usuários</title>
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{jquery-3.6.0.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+
+
+<!-- --------------------------------- -->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> <!--  For notifications -->
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!--  Bootstrap requires jquery and toastr to run -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!--  We will not use this (atm) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> <!--  need it to run toastr -->
+
+</head>
+<body>
+
+	<div th:insert="fragments/publica-nav :: nav"></div>
+	<div class="container">
+		<div class="row">
+
+			<div class="col">
+
+				<h1>Lista de usuários</h1>
+
+				<table class="table table-striped">
+
+					<thead class="thead-dark"> 
+
+						<tr>
+
+							<th>ID</th>
+							<th>Nome</th>
+							<th>CPF</th>
+							<th>Data de Nascimento</th>
+							<th>E-mail</th>
+						</tr>
+
+					</thead>
+					<tbody>
+
+						<tr th:if="${usuarios.empty}">
+							<td colspan="2">Sem usuários</td>
+
+						</tr>
+
+						<tr th:each="usuario : ${usuarios}">
+
+							<td><span th:text="${usuario.id}">ID</span></td>
+							<td><span th:text="${usuario.nome}">nome</span></td>
+							<td><span th:text="${usuario.cpf}">cpf</span></td>
+							<td><span
+								th:text="${#dates.format(usuario.dataNascimento, 'dd/MM/yyyy')}">data
+									de nascimento</span></td>
+							<td><span th:text="${usuario.email}">email</span></td>
+
+						</tr>
+
+					</tbody>
+				</table>
+
+			</div>
+
+
+		</div>
+	</div>
+
+</body>
+</html>
