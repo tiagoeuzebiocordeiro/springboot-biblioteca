@@ -28,10 +28,12 @@
 	<div class="container">
 		<div class="row">
 
-			<div class="col">
-
-				<h1>Lista de usuários</h1>
-
+			<div class="col"> 
+				
+				
+					<h1>Lista de usuários <a class="btn btn-secondary" href="/">Voltar</a></h1>
+					
+			
 				<table class="table table-striped">
 
 					<thead class="thead-dark"> 
@@ -43,13 +45,15 @@
 							<th>CPF</th>
 							<th>Data de Nascimento</th>
 							<th>E-mail</th>
+							<th>Deletar</th>
+							<th>Editar</th>
 						</tr>
 
 					</thead>
 					<tbody>
 
 						<tr th:if="${usuarios.empty}">
-							<td colspan="2">Sem usuários</td>
+							<td colspan="7" id="tabelaVazia" style="text-align: center">Nenhum usuário encontrado</td>
 
 						</tr>
 
@@ -62,7 +66,20 @@
 								th:text="${#dates.format(usuario.dataNascimento, 'dd/MM/yyyy')}">data
 									de nascimento</span></td>
 							<td><span th:text="${usuario.email}">email</span></td>
+							<td>
 
+								<a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal" >Deletar</a>
+								
+								<div th:replace="fragments/modal :: modal-apagar"></div>
+								
+							</td>
+							
+							<td>
+							
+								<a class="btn btn-warning btn-sm" th:href="@{/usuario/editar/{id} (id=${usuario.id})}">Editar</a>
+							
+							</td>
+							
 						</tr>
 
 					</tbody>
@@ -73,6 +90,41 @@
 
 		</div>
 	</div>
+	
+<script th:inline="javascript"> 
+
+	window.onload = function() {
+	
+		var mensagem = [[${mensagem}]];
+		if (mensagem == "Deletado com sucesso") {
+		
+			Command: toastr.success("Usuário deletado com sucesso!")
+			
+			}
+		
+			toastr.options = {
+			  "closeButton": true,
+			  "debug": false,
+			  "newestOnTop": false,
+			  "progressBar": true,
+			  "positionClass": "toast-top-right",
+			  "preventDuplicates": false,
+			  "onclick": null,
+			  "showDuration": "300",
+			  "hideDuration": "1000",
+			  "timeOut": "5000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+	
+		}
+	
+	}
+
+
+</script>
 
 </body>
 </html>

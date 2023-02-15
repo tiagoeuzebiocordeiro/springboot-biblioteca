@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -44,10 +46,24 @@ public class UsuarioController {
 	
 	
 	@GetMapping("/admin/listar")
-	public String listarUsuario(Model model) {
+	public String listarUsuario(Model model, @ModelAttribute("mensagem") String mensagem) {
+		model.addAttribute("mensagem", mensagem);
 		model.addAttribute("usuarios", usuarioRepository.findAll());
 		return "/auth/admin/admin-listar-usuario";
 	}
+	
+	@GetMapping("/admin/apagar/{id}")
+	public String deleteUser(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
+		Usuario usuario = usuarioRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
+		
+		usuarioRepository.delete(usuario);
+		
+		attributes.addFlashAttribute("mensagem", "Deletado com sucesso");
+		return "redirect:/usuario/admin/listar";
+		
+	}
+	
 	
 }
 
