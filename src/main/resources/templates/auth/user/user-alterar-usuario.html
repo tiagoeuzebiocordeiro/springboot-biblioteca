@@ -34,13 +34,15 @@
 
 	<div th:insert="fragments/publica-nav :: nav"></div>
 
-	<div class="container-fluid">
 
-	<h3 class="pt-3">Cadastro de usuários</h3>
+
+	<div class="container-fluid">
 	
+	<h3 class="pt-3">Alterar usuário</h3>
 	
+		
 	
-	<form action="#" th:action="@{/usuario/salvar}" th:object="${usuario}" method="post">
+	<form action="#" th:action="@{/usuario/editar/{id} (id=${usuario.id})}" th:object="${usuario}" method="post">
 		<div class="form-group">
 			<label for="formGroupExampleInput">Nome</label> <input
 				type="text" class="form-control"
@@ -48,7 +50,6 @@
 		<div> 
 			<span class="mensagem" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 		</div>
-		
 		</div>
 		
 				
@@ -112,8 +113,8 @@
 		
 		<div class="pt-3"></div>
 		
-		<input class="btn btn-primary pt" type="submit" value="Gravar">
-		<a class="btn btn-secondary" href="/">Voltar</a>
+		<input class="btn btn-primary pt" type="submit" value="Alterar">
+		<a class="btn btn-secondary" href="/usuario/admin/listar">Voltar</a>
 	</form>
 	</div>
 	
@@ -122,9 +123,10 @@
 	window.onload = function() {
 	
 		var mensagem = [[${mensagem}]];
-		if (mensagem == "Salvo com sucesso") {
-		
-			Command: toastr.success("Usuário salvo com sucesso!")
+		if (mensagem == "Editado com sucesso") {
+			
+			
+			Command: toastr.success("Usuário editado com sucesso!")
 			
 			}
 		

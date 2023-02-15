@@ -1,5 +1,7 @@
 package com.tiagoezc.springboot.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +49,9 @@ public class UsuarioController {
 	
 	@GetMapping("/admin/listar")
 	public String listarUsuario(Model model, @ModelAttribute("mensagem") String mensagem) {
-		model.addAttribute("mensagem", mensagem);
+		
 		model.addAttribute("usuarios", usuarioRepository.findAll());
+		model.addAttribute("mensagem", mensagem);
 		return "/auth/admin/admin-listar-usuario";
 	}
 	
@@ -64,6 +67,32 @@ public class UsuarioController {
 		
 	}
 	
+	@GetMapping("/editar/{id}")
+	public String editarUsuario(@PathVariable("id") Long id, Model model) {
+		Optional<Usuario> usuarioVelho = usuarioRepository.findById(id); // evitar ponteiro nulo
+		if (!usuarioVelho.isPresent()) {
+			throw new IllegalArgumentException("Usuário inválido: " + id);
+		}
+		
+		Usuario usuario = usuarioVelho.get();
+		model.addAttribute("usuario", usuario);
+		
+		return "/auth/user/user-alterar-usuario";
+		
+	}
+	
+	@PostMapping("/editar/{id}")
+	public String editarUsuario(@PathVariable("id") Long id, @Valid Usuario usuario, BindingResult result, RedirectAttributes redirectAttributes) {
+		if (result.hasErrors()) {
+			usuario.setId(id);
+			return "/auth/user/user-alterar-usuario";
+		}
+		
+		usuarioRepository.save(usuario);
+		redirectAttributes.addFlashAttribute("mensagem", "Editado com sucesso");
+		return "redirect:/usuario/admin/listar";
+		
+	}
 	
 }
 
