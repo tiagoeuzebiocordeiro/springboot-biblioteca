@@ -1,12 +1,17 @@
 package com.tiagoezc.springboot.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -53,6 +58,12 @@ public class Usuario {
 	private String login;
 	
 	private boolean ativo;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="usuario_papel",
+	   joinColumns = @JoinColumn(name = "usuario_id"),
+	   inverseJoinColumns = @JoinColumn(name = "papel_id"))
+	private List<Papel> papeis;
 	
 	public Long getId() {
 		return id;
@@ -102,6 +113,12 @@ public class Usuario {
 	}
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+	public List<Papel> getPapeis() {
+		return papeis;
+	}
+	public void setPapeis(List<Papel> papeis) {
+		this.papeis = papeis;
 	}
 	
 	
