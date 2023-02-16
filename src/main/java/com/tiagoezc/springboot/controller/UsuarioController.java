@@ -34,9 +34,15 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvarUsuario(@Valid Usuario usuario, BindingResult result, RedirectAttributes attributes) {
+	public String salvarUsuario(@Valid Usuario usuario, BindingResult result, RedirectAttributes attributes,Model model) {
 	
 		if (result.hasErrors()) {
+			return "/publica-criar-usuario";
+		}
+		
+		Usuario usr = usuarioRepository.findByLogin(usuario.getLogin());
+		if (usr != null) {
+			model.addAttribute("mensagem", "Login de usuário já cadastrado no sistema.");
 			return "/publica-criar-usuario";
 		}
 		

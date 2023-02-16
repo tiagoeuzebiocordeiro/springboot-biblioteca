@@ -93,6 +93,7 @@
 				placeholder="Login do usuário" style="width:300px;">
 				<div> 
 			<span class="mensagem" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+			<span class="mensagem" th:if="${mensagem}" th:text="${mensagem}"></span> <!--  verifica se já existe um usuario com o msm login(nick) -->
 		</div>
 		</div>
 		
